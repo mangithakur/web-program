@@ -1,1 +1,78 @@
+Create following table using XHTML tags. Properly align cells,
+give suitable cell padding and cell spacing, and apply background
+color, bold and emphasis necessary
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html charset=utf-8" />
+
+<title>Lab Set Program 2</title>
+
+</head>
+
+<body>
+
+<table border="1" align="center" cell-padding="10" cell-spacing="10" width="300"
+height="300">
+
+<tr>
+
+<td align="center" rowspan="9" bgcolor="lightblue">
+
+<b>Department </b>
+
+</td>
+
+<td align="center" rowspan="3" bgcolor="#C9A0DC">
+
+<b> Sem1 </b>
+
+</td>
+
+<td> <em> Subjecta </em> </td>
+
+<tr>
+
+<td> <em> Subjectb </em> </td>
+
+</tr>
+
+<tr><td> <em> Subjectc </em> </td>
+
+</tr>
+
+<td align="center" rowspan="3" bgcolor="#C9A0DC">
+
+<b> Sem2 </b> </td>
+
+<td> <em> Subjectd </em> </td>
+
+<tr><td> <em> Subjecte </em> </td>
+
+</tr>
+
+<tr><td> <em> Subjectf </em> </td>
+
+</tr>
+
+<td align="center" rowspan="3" bgcolor="#C9A0DC">
+
+<b> Sem3 </b> </td>
+
+<td> <em> Subjectg </em> </td>
+
+<tr><td> <em> Subjecth </em> </td></tr>
+
+<tr><td> <em> Subjecti </em> </td>
+
+</tr>
+
+</body>
+
+</html>
