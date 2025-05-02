@@ -1,0 +1,88 @@
+1. Create an XHTML page using tags to accomplish the
+following:
+
+(i) A paragraph containing text “All that glitters is not gold”.
+Bold face and italicize this text .
+
+(ii) Create equation: 𝑥 = 1/3(𝑦12 + z12 )
+
+(iii) Put a background image to a page and demonstrate all
+attributes of background image.
+
+(iv) Create unordered list of 5 fruits and ordered list of 3
+flowers
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html charset=utf-8" />
+
+<title>Hello XHTML World</title>
+
+<style>
+
+body {
+
+background:url("Desert1.jpg");
+
+background-repeat=no-repeat;
+
+background-size:cover;
+
+background-position=center;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<p> <b> <i> “All that glitters is not gold” </i> </b> </p>
+
+<p>
+
+<i>x</i>=1/3(<i>y</i><sub>1</sub><sup>2</sup>+<i>z</i><sub>1</sub><sup>2</su
+p>)
+
+</p>
+
+<p>
+
+<ul>
+
+<h1> Unordered list of 5 fruits </h1>
+
+<li> Apple </li>
+
+<li> Orange </li>
+
+<li> Banana </li>
+
+<li> Berry </li>
+
+<li> Guava </li>
+
+</ul>
+
+<ol>
+
+<h1> Ordered list of 3 flowers </h1>
+
+<li> Rose </li>
+
+<li> Lily </li>
+
+<li> Jasmine </li>
+
+</ol>
+
+</p>
+
+</body>
