@@ -1,0 +1,41 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="utf-8"/> 
+<title>class selectors demo</title> 
+<style> 
+.income{background-color:#0ff;font-style:italic;} 
+.expenses{background-color:#f0f;font-style:oblique;} 
+.profit{background-color:#f00;font-weight:bold;} 
+.red{color:red;font-size:24px;} 
+.strike{text-decoration:line-through;font-size:24px;} 
+p{font-family:cursive;} 
+</style> 
+</head> 
+<body> 
+<h1>Class selectors Demo</h1> 
+<p> 
+income, expenses, profit are financial terms that are used to measure 
+the financial health of a person or a business</p> 
+<p class="income"> 
+income refers to the amount of miney received by an individual or 
+business from various such as employment ,investments or sales of 
+goods and service income can be earned on a regular basis such as a 
+salary or irregularly such as a bonus are one -time payment</p> 
+<p class="expenses"> 
+expenses on the other hand, refer to the amount of money spent by an 
+individual or business to cover their costs of living or operating.expenses 
+can include fixed costs such as rent or salaries variable costs such as 
+the cost of materials or discretionary costs such as entertainment or 
+travel.</p> 
+<p class="profit"> 
+profit is the amount of money that remains after deducting expenses 
+from income it represents the financial gain or loss that a person or 
+business ha generated over a given period of time a positive profit 
+means that the income was greater than the expenses while a negative 
+profit means that the expenses were greater than yhe income</p> 
+<span class="strike"> the current price is 50&#8377; 
+</span><span class="red"> and new price is 40&#8377; 
+</span> 
+</body> 
+</html>
