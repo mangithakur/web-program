@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 10
+
+typedef struct {
+    char name[50];
+    int priority;  // lower number -> higher priority 
+} Patient;
+
+Patient pq[MAX];
+int size = 0;
+
+// Function to insert patient based on priority
+void addPatient(char name[], int priority) {
+    if (size == MAX) {
+        printf("Queue is full! Cannot add more patients.\n");
+        return;
+    }
+
+    int i = size - 1;
+
+    // Shift patients to maintain priority order
+    while (i >= 0 && pq[i].priority > priority) {
+        pq[i + 1] = pq[i];
+        i--;
+    }
+
+    // Insert new patient at correct position
+    strcpy(pq[i + 1].name, name);
+    pq[i + 1].priority = priority;
+    size++;
+
+    printf("Patient %s with priority %d added to queue.\n", name, priority);
+}
+
+// Function to remove highest priority patient
+void attendPatient() {
+    if (size == 0) {
+        printf("No patients in the queue.\n");
+        return;
+    }
+
+    printf("Attending patient: %s (priority %d)\n", pq[0].name, pq[0].priority);
+
+    // Shift remaining patients to the left
+    for (int i = 0; i < size - 1; i++) {
+        pq[i] = pq[i + 1];
+    }
+    size--;
+}
+
+// Function to display all patients
+void displayPatients() {
+    if (size == 0) {
+        printf("No patients waiting.\n");
+        return;
+    }
+
+    printf("\n--- Patients in Queue ---\n");
+    printf("\nPriority\t Name\n");
+
+    for (int i = 0; i < size; i++) {
+        printf("%d\t\t%s\n", pq[i].priority, pq[i].name);
+    }
+}
+
+// Main function with menu
+int main() {
+    int choice, priority;
+    char name[50];
+
+    for (;;) {
+        printf("\n--- Hospital Emergency Management ---\n");
+        printf("1. Add Patient\n");
+        printf("2. Attend Patient\n");
+        printf("3. Display Patients\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter patient name: ");
+                scanf("%s", name);
+                printf("Enter priority (lower = more critical): ");
+                scanf("%d", &priority);
+                addPatient(name, priority);
+                break;
+
+            case 2:
+                attendPatient();
+                break;
+
+            case 3:
+                displayPatients();
+                break;
+
+            case 4:
+                printf("Exiting...\n");
+                exit(0);
+
+            default:
+                printf("Invalid choice! Try again.\n");
+        }
+    }
+}
