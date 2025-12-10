@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 5   // maximum number of tasks
+
+int stack[MAX];
+int top = -1;
+
+// function to add (push) a new task
+void push(int taskID) {
+    if (top == MAX - 1) {
+        printf("\nStack Overflow! Cannot add new task.\n");
+    } else {
+        top++;
+        stack[top] = taskID;
+        printf("\nTask %d added to the stack.\n", taskID);
+    }
+}
+
+// function to remove (pop) most recent task
+void pop() {
+    if (top == -1) {
+        printf("\nStack Underflow! No task to remove.\n");
+    } else {
+        int removed = stack[top];
+        top--;
+        printf("\nTask %d removed from the stack.\n", removed);
+    }
+}
+
+// function to display current status of stack
+void display() {
+    int i;
+    if (top == -1) {
+        printf("\nStack is empty. No tasks waiting.\n");
+    } else {
+        printf("\nCurrent tasks in the stack (top to bottom):\n");
+        for (i = top; i >= 0; i--) {
+            printf("%d ", stack[i]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int choice, taskID;
+
+    while (1) {
+        printf("\n=== TASK MANAGEMENT USING STACK ===\n");
+        printf("1. Add (Push) a new task\n");
+        printf("2. Remove (Pop) most recent task\n");
+        printf("3. Display current tasks\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter task ID to add: ");
+                scanf("%d", &taskID);
+                push(taskID);
+                break;
+
+            case 2:
+                pop();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                printf("\nExiting program...\n");
+                exit(0);
+
+            default:
+                printf("\nInvalid choice! Please try again.\n");
+        }
+    }
+}
