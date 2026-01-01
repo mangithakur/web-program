@@ -1,0 +1,164 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Patient {
+    int patient_id;
+    char name[50];
+    char diagnosis[50];
+    char admission_date[20];
+    struct Patient *prev;
+    struct Patient *next;
+};
+
+struct Patient *head = NULL;
+
+
+struct Patient* createNode(int id, char name[], char diagnosis[], char date[]) {
+    struct Patient *newNode = (struct Patient*)malloc(sizeof(struct Patient));
+    newNode->patient_id = id;
+    strcpy(newNode->name, name);
+    strcpy(newNode->diagnosis, diagnosis);
+    strcpy(newNode->admission_date, date);
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    return newNode;
+}
+
+
+void insertSorted() {
+    int id;
+    char name[50], diagnosis[50], date[20];
+
+    printf("Enter Patient ID: ");
+    scanf("%d", &id);
+    printf("Enter Name: ");
+    scanf("%s", name);
+    printf("Enter Diagnosis: ");
+    scanf("%s", diagnosis);
+    printf("Enter Admission Date: ");
+    scanf("%s", date);
+
+    struct Patient *newNode = createNode(id, name, diagnosis, date);
+
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+
+    struct Patient *temp = head;
+
+    if (id < head->patient_id) {
+        newNode->next = head;
+        head->prev = newNode;
+        head = newNode;
+        return;
+    }
+
+    while (temp->next != NULL && temp->next->patient_id < id) {
+        temp = temp->next;
+    }
+
+    newNode->next = temp->next;
+    if (temp->next != NULL)
+        temp->next->prev = newNode;
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+
+void countPatients() {
+    int count = 0;
+    struct Patient *temp = head;
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+    printf("Total number of patients admitted: %d\n", count);
+}
+
+
+void deleteAtPosition() {
+    int pos, i = 1;
+    struct Patient *temp = head;
+
+    if (head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    printf("Enter position to delete: ");
+    scanf("%d", &pos);
+
+    if (pos == 1) {
+        head = head->next;
+        if (head != NULL)
+            head->prev = NULL;
+        free(temp);
+        printf("Patient record deleted.\n");
+        return;
+    }
+
+    while (temp != NULL && i < pos) {
+        temp = temp->next;
+        i++;
+    }
+
+    if (temp == NULL) {
+        printf("Invalid position.\n");
+        return;
+    }
+
+    temp->prev->next = temp->next;
+    if (temp->next != NULL)
+        temp->next->prev = temp->prev;
+
+    free(temp);
+    printf("Patient record deleted.\n");
+}
+
+void displayPatients() {
+    struct Patient *temp = head;
+
+    if (head == NULL) {
+        printf("No patient records available.\n");
+        return;
+    }
+
+    printf("\nPatient Records:\n");
+    printf("--------------------------------------------------\n");
+    while (temp != NULL) {
+        printf("ID: %d\n", temp->patient_id);
+        printf("Name: %s\n", temp->name);
+        printf("Diagnosis: %s\n", temp->diagnosis);
+        printf("Admission Date: %s\n", temp->admission_date);
+        printf("--------------------------------------------------\n");
+        temp = temp->next;
+    }
+}
+
+int main() {
+    int choice;
+
+    do {
+        printf("\n--- Patient Record Management System ---\n");
+        printf("1. Add Patient Record (Sorted by ID)\n");
+        printf("2. Count Total Patients\n");
+        printf("3. Delete Patient Record at Position\n");
+        printf("4. Display All Patient Records\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: insertSorted(); break;
+            case 2: countPatients(); break;
+            case 3: deleteAtPosition(); break;
+            case 4: displayPatients(); break;
+            case 5: printf("Exiting program...\n"); break;
+            default: printf("Invalid choice.\n");
+        }
+    } while (choice != 5);
+
+    return 0;
+}
