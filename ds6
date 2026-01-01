@@ -1,0 +1,128 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int orderID;
+    struct Node* next;
+};
+
+struct Node* head = NULL;
+
+// Insert at front (VIP orders)
+void insertFront(int id) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->orderID = id;
+    newNode->next = head;
+    head = newNode;
+}
+
+// Insert at rear (Regular orders)
+void insertRear(int id) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->orderID = id;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+
+    struct Node* temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+}
+
+// Delete order by ID
+void deleteOrder(int id) {
+    struct Node* temp = head;
+    struct Node* prev = NULL;
+
+    if (temp != NULL && temp->orderID == id) {
+        head = temp->next;
+        free(temp);
+        printf("Order %d deleted successfully.\n", id);
+        return;
+    }
+
+    while (temp != NULL && temp->orderID != id) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Order ID %d not found!\n", id);
+        return;
+    }
+
+    prev->next = temp->next;
+    free(temp);
+    printf("Order %d deleted successfully.\n", id);
+}
+
+// Display orders
+void display() {
+    struct Node* temp = head;
+
+    if (temp == NULL) {
+        printf("No pending orders.\n");
+        return;
+    }
+
+    printf("Pending Orders: ");
+    while (temp != NULL) {
+        printf("%d ", temp->orderID);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    int choice, id, n, type;
+
+    while (1) {
+        printf("\n--- ORDER TRACKING SYSTEM ---\n");
+        printf("1. Insert new orders\n");
+        printf("2. Delete an order\n");
+        printf("3. Display pending orders\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+        case 1:
+            printf("Enter number of orders: ");
+            scanf("%d", &n);
+
+            for (int i = 0; i < n; i++) {
+                printf("Enter Order ID: ");
+                scanf("%d", &id);
+                printf("1. VIP (Front)  2. Regular (Rear): ");
+                scanf("%d", &type);
+
+                if (type == 1)
+                    insertFront(id);
+                else
+                    insertRear(id);
+            }
+            break;
+
+        case 2:
+            printf("Enter Order ID to delete: ");
+            scanf("%d", &id);
+            deleteOrder(id);
+            break;
+
+        case 3:
+            display();
+            break;
+
+        case 4:
+            exit(0);
+
+        default:
+            printf("Invalid choice!\n");
+        }
+    }
+}
