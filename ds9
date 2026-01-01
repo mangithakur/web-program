@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int coeff;
+    int exp;
+    struct node *next;
+};
+
+struct node* createNode(int c, int e) {
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    temp->coeff = c;
+    temp->exp = e;
+    temp->next = NULL;
+    return temp;
+}
+
+void insert(struct node** head, int c, int e) {
+    struct node* temp = createNode(c, e);
+    if (*head == NULL) {
+        *head = temp;
+    } else {
+        struct node* cur = *head;
+        while (cur->next != NULL)
+            cur = cur->next;
+        cur->next = temp;
+    }
+}
+
+struct node* addPoly(struct node* p1, struct node* p2) {
+    struct node* result = NULL;
+
+    while (p1 && p2) {
+        if (p1->exp > p2->exp) {
+            insert(&result, p1->coeff, p1->exp);
+            p1 = p1->next;
+        } else if (p1->exp < p2->exp) {
+            insert(&result, p2->coeff, p2->exp);
+            p2 = p2->next;
+        } else {
+            int sum = p1->coeff + p2->coeff;
+            if (sum != 0)
+                insert(&result, sum, p1->exp);
+            p1 = p1->next;
+            p2 = p2->next;
+        }
+    }
+
+    while (p1) {
+        insert(&result, p1->coeff, p1->exp);
+        p1 = p1->next;
+    }
+
+    while (p2) {
+        insert(&result, p2->coeff, p2->exp);
+        p2 = p2->next;
+    }
+
+    return result;
+}
+
+void display(struct node* head) {
+    while (head) {
+        printf("%dx^%d", head->coeff, head->exp);
+        if (head->next)
+            printf(" + ");
+        head = head->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct node *p1 = NULL, *p2 = NULL, *sum = NULL;
+
+    insert(&p1, 5, 3);
+    insert(&p1, 4, 2);
+    insert(&p1, 2, 0);
+
+    insert(&p2, 5, 2);
+    insert(&p2, 5, 1);
+    insert(&p2, 3, 0);
+
+    printf("Polynomial 1: ");
+    display(p1);
+
+    printf("Polynomial 2: ");
+    display(p2);
+
+    sum = addPoly(p1, p2);
+
+    printf("Resultant Polynomial: ");
+    display(sum);
+
+    return 0;
+}
