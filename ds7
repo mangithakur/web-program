@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
+struct node
+{
+    char booking[50];
+    struct node *next;
+};
+
+struct node *front = NULL;
+struct node *rear = NULL;
+
+void insert()
+{
+    struct node *temp;
+    temp = (struct node *)malloc(sizeof(struct node));
+
+    printf("Enter booking request: ");
+    fflush(stdin);
+    gets(temp->booking);
+
+    temp->next = NULL;
+
+    if (rear == NULL)
+        front = rear = temp;
+    else
+    {
+        rear->next = temp;
+        rear = temp;
+    }
+}
+
+void remove_request()
+{
+    struct node *temp;
+
+    if (front == NULL)
+    {
+        printf("No pending booking requests\n");
+        return;
+    }
+
+    temp = front;
+    printf("Processed booking: %s\n", temp->booking);
+
+    front = front->next;
+    if (front == NULL)
+        rear = NULL;
+
+    free(temp);
+}
+
+void display()
+{
+    struct node *temp;
+
+    if (front == NULL)
+    {
+        printf("No pending booking requests\n");
+        return;
+    }
+
+    printf("Pending booking requests:\n");
+    temp = front;
+    while (temp != NULL)
+    {
+        printf("%s\n", temp->booking);
+        temp = temp->next;
+    }
+}
+
+void main()
+{
+    int choice;
+    clrscr();
+
+    do
+    {
+        printf("\n1. Insert Booking Request");
+        printf("\n2. Remove Front Request");
+        printf("\n3. Display Pending Requests");
+        printf("\n4. Exit");
+        printf("\nEnter your choice: ");
+
+        scanf("%d", &choice);
+        fflush(stdin);
+
+        switch (choice)
+        {
+        case 1: insert(); break;
+        case 2: remove_request(); break;
+        case 3: display(); break;
+        case 4: printf("Exiting...\n"); break;
+        default: printf("Invalid choice\n");
+        }
+
+    } while (choice != 4);
+
+    getch();
+}
