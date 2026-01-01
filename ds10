@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int id;
+    struct node *left, *right;
+};
+
+struct node* createNode(int id) {
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    temp->id = id;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+
+struct node* insert(struct node* root, int id) {
+    if (root == NULL)
+        return createNode(id);
+    if (id < root->id)
+        root->left = insert(root->left, id);
+    else if (id > root->id)
+        root->right = insert(root->right, id);
+    return root;
+}
+
+void inorder(struct node* root) {
+    if (root) {
+        inorder(root->left);
+        printf("%d ", root->id);
+        inorder(root->right);
+    }
+}
+
+void preorder(struct node* root) {
+    if (root) {
+        printf("%d ", root->id);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+void postorder(struct node* root) {
+    if (root) {
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d ", root->id);
+    }
+}
+
+int main() {
+    struct node* root = NULL;
+    int n, id;
+
+    printf("Enter number of products: ");
+    scanf("%d", &n);
+
+    printf("Enter product IDs:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &id);
+        root = insert(root, id);
+    }
+
+    printf("\nInorder Traversal (Sorted View): ");
+    inorder(root);
+
+    printf("\nPreorder Traversal: ");
+    preorder(root);
+
+    printf("\nPostorder Traversal: ");
+    postorder(root);
+
+    return 0;
+}
