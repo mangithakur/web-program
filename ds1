@@ -77,7 +77,7 @@ DISTANCE add_distance(DISTANCE d1, DISTANCE d2)
 
     if(sum.metres >= 1000)
     {
-        sum.metres -= 1000;
+        sum.metres =sum.metres%1000;
         sum.kms += 1;
     }
 
