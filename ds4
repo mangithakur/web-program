@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <math.h>
+
+
+void towerOfHanoi(int n, char source, char destination, char auxiliary);
+int gcd(int a, int b);
+int findLargest(int arr[], int n);
+
+int main() {
+    int choice;
+
+    printf("\n=== RECURSIVE SOLUTIONS MODULE ===\n");
+
+    do {
+        printf("\nMenu\n");
+        printf("1. Disk Movement in Automation System (Tower of Hanoi)\n");
+        printf("2. Fault Detection in Signal Processing (GCD of two numbers)\n");
+        printf("3. Recursive Evaluation in Data Streaming (Find largest of n numbers)\n");
+        printf("4. Exit\n");
+
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+
+        case 1: {
+            int n;
+            printf("\n=== DISK MOVEMENT IN AUTOMATION SYSTEM ===\n");
+            printf("Enter number of disks: ");
+            scanf("%d", &n);
+
+            printf("\nSequence of moves to transfer %d disks:\n", n);
+            towerOfHanoi(n, 'A', 'C', 'B');
+
+            long total_moves = pow(2, n) - 1;
+            printf("Total moves required: %ld\n", total_moves);
+            break;
+        }
+
+        case 2: {
+            int a, b;
+            printf("\n=== FAULT DETECTION IN SIGNAL PROCESSING ===\n");
+            printf("Enter two frequency values: ");
+            scanf("%d %d", &a, &b);
+
+            int result = gcd(a, b);
+            printf("GCD of %d and %d is: %d\n", a, b, result);
+            printf("Synchronization interval identified at: %d Hz\n", result);
+            break;
+        }
+
+        case 3: {
+            int n;
+            printf("\n=== RECURSIVE EVALUATION IN DATA STREAMS ===\n");
+            printf("Enter number of data points: ");
+            scanf("%d", &n);
+
+            int arr[n];
+            printf("Enter %d data values:\n", n);
+            for (int i = 0; i < n; i++) {
+                scanf("%d", &arr[i]);
+            }
+
+            int largest = findLargest(arr, n);
+            printf("Largest value in the dataset: %d\n", largest);
+            break;
+        }
+
+        case 4:
+            printf("Exiting program. Goodbye!\n");
+            break;
+
+        default:
+            printf("Invalid choice! Please try again.\n");
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
+void towerOfHanoi(int n, char source, char destination, char auxiliary) {
+    if (n == 0)
+        return;
+
+    towerOfHanoi(n - 1, source, auxiliary, destination);
+    printf("Move disk %d from peg %c to peg %c\n", n, source, destination);
+    towerOfHanoi(n - 1, auxiliary, destination, source);
+}
+
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+int findLargest(int arr[], int n) {
+    if (n == 1)
+        return arr[0];
+
+    int max_of_rest = findLargest(arr + 1, n - 1);
+
+    if (arr[0] > max_of_rest)
+        return arr[0];
+    else
+        return max_of_rest;
+}
