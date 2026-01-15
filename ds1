@@ -67,7 +67,7 @@ int main()
     return 0;
 }
 
-/* Function to add distances */
+
 DISTANCE add_distance(DISTANCE d1, DISTANCE d2)
 {
     DISTANCE sum;
@@ -84,7 +84,7 @@ DISTANCE add_distance(DISTANCE d1, DISTANCE d2)
     return sum;
 }
 
-/* Function to subtract distances */
+
 DISTANCE subtract_distance(DISTANCE d1, DISTANCE d2)
 {
     DISTANCE sub;
