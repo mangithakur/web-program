@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX 5   // maximum number of tasks
+#define MAX 5   
 
 int stack[MAX];
 int top = -1;
 
-// function to add (push) a new task
+
 void push(int taskID) {
     if (top == MAX - 1) {
         printf("\nStack Overflow! Cannot add new task.\n");
@@ -17,7 +17,6 @@ void push(int taskID) {
     }
 }
 
-// function to remove (pop) most recent task
 void pop() {
     if (top == -1) {
         printf("\nStack Underflow! No task to remove.\n");
@@ -28,7 +27,6 @@ void pop() {
     }
 }
 
-// function to display current status of stack
 void display() {
     int i;
     if (top == -1) {
