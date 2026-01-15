@@ -8,7 +8,7 @@ struct Node {
 
 struct Node* head = NULL;
 
-// Insert at front (VIP orders)
+
 void insertFront(int id) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->orderID = id;
@@ -16,7 +16,7 @@ void insertFront(int id) {
     head = newNode;
 }
 
-// Insert at rear (Regular orders)
+
 void insertRear(int id) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->orderID = id;
@@ -34,7 +34,7 @@ void insertRear(int id) {
     temp->next = newNode;
 }
 
-// Delete order by ID
+
 void deleteOrder(int id) {
     struct Node* temp = head;
     struct Node* prev = NULL;
@@ -61,7 +61,7 @@ void deleteOrder(int id) {
     printf("Order %d deleted successfully.\n", id);
 }
 
-// Display orders
+
 void display() {
     struct Node* temp = head;
 
