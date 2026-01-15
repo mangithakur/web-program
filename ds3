@@ -6,17 +6,14 @@
 char stack[MAX];
 int top = -1;
 
-// push into stack
 void push(char ch) {
     stack[++top] = ch;
 }
 
-// pop from stack
 char pop() {
     return stack[top--];
 }
 
-// operator priority
 int precedence(char ch) {
     if (ch == '^') return 3;
     if (ch == '*' || ch == '/') return 2;
@@ -24,7 +21,6 @@ int precedence(char ch) {
     return 0;
 }
 
-// INFIX → POSTFIX conversion
 void infixToPostfix(char infix[], char postfix[]) {
     int i = 0, j = 0;
     char ch;
@@ -32,17 +28,15 @@ void infixToPostfix(char infix[], char postfix[]) {
     while (infix[i] != '\0') {
         ch = infix[i];
 
-        // 1. Operand → postfix me directly daal do
+    
         if (isalnum(ch)) {     
             postfix[j++] = ch;
         }
 
-        // 2. '(' → stack me push
         else if (ch == '(') {
             push(ch);
         }
 
-        // 3. ')' → pop until '('
         else if (ch == ')') {
             while (top != -1 && stack[top] != '(') {
                 postfix[j++] = pop();
@@ -50,7 +44,7 @@ void infixToPostfix(char infix[], char postfix[]) {
             pop(); // '(' remove
         }
 
-        // 4. Operator
+    
         else {
             while (top != -1 && precedence(stack[top]) >= precedence(ch)) {
                 postfix[j++] = pop();
@@ -61,7 +55,7 @@ void infixToPostfix(char infix[], char postfix[]) {
         i++;
     }
 
-    // 5. stack me bache operators postfix me daal do
+   
     while (top != -1) {
         postfix[j++] = pop();
     }
