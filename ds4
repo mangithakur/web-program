@@ -1,106 +1,140 @@
-#include <stdio.h>
-#include <math.h>
-
-
-void towerOfHanoi(int n, char source, char destination, char auxiliary);
-int gcd(int a, int b);
-int findLargest(int arr[], int n);
-
-int main() {
-    int choice;
-
-    printf("\n=== RECURSIVE SOLUTIONS MODULE ===\n");
-
-    do {
-        printf("\nMenu\n");
-        printf("1. Disk Movement in Automation System (Tower of Hanoi)\n");
-        printf("2. Fault Detection in Signal Processing (GCD of two numbers)\n");
-        printf("3. Recursive Evaluation in Data Streaming (Find largest of n numbers)\n");
-        printf("4. Exit\n");
-
-        printf("\nEnter your choice: ");
-        scanf("%d", &choice);
-
-        switch (choice) {
-
-        case 1: {
-            int n;
-            printf("\n=== DISK MOVEMENT IN AUTOMATION SYSTEM ===\n");
-            printf("Enter number of disks: ");
-            scanf("%d", &n);
-
-            printf("\nSequence of moves to transfer %d disks:\n", n);
-            towerOfHanoi(n, 'A', 'C', 'B');
-
-            long total_moves = pow(2, n) - 1;
-            printf("Total moves required: %ld\n", total_moves);
-            break;
-        }
-
-        case 2: {
-            int a, b;
-            printf("\n=== FAULT DETECTION IN SIGNAL PROCESSING ===\n");
-            printf("Enter two frequency values: ");
-            scanf("%d %d", &a, &b);
-
-            int result = gcd(a, b);
-            printf("GCD of %d and %d is: %d\n", a, b, result);
-            printf("Synchronization interval identified at: %d Hz\n", result);
-            break;
-        }
-
-        case 3: {
-            int n;
-            printf("\n=== RECURSIVE EVALUATION IN DATA STREAMS ===\n");
-            printf("Enter number of data points: ");
-            scanf("%d", &n);
-
-            int arr[100];
-            printf("Enter %d data values:\n", n);
-            for (int i = 0; i < n; i++) {
-                scanf("%d", &arr[i]);
-            }
-
-            int largest = findLargest(arr, n);
-            printf("Largest value in the dataset: %d\n", largest);
-            break;
-        }
-
-        case 4:
-            printf("Exiting program. Goodbye!\n");
-            break;
-
-        default:
-            printf("Invalid choice! Please try again.\n");
-        }
-
-    } while (choice != 4);
-
-    return 0;
+#include<stdio.h> 
+#include<conio.h> 
+ 
+void quick_sort(int[ ], int, int);
+int partition(int[ ], int, int);
+void main() 
+{ int a[20], i, n; clrscr(); 
+printf("\n Enter the no. of elements:\t"); scanf("%d", &n);
+printf("\n Enter the elements:\n"); for(i=0;i<=n-1;i++) 
+{ 
+scanf("%d", &a[i]); 
 }
-void towerOfHanoi(int n, char source, char destination, char auxiliary) {
-    if (n == 0)
-        return;
+quick_sort(a, 0, n-1);
+printf("\n The sorted array is:\n");
+for(i=0;i<=n-1;i++) 
+{ 
+printf("%d\t", a[i]); 
+} 
+getch(); 
+} 
+ 
+void quick_sort(int a[], int low, int high) 
+{ 
+int j; 
+if(low<high) 
+{ 
+j = partition(a, low, high); 
+quick_sort(a, low, j-1); quick_sort(a, j+1, high); 
+} 
+} 
+ 
+int partition(int a[ ], int low, int high) 
+{ 
+ 	int i, j, key, temp;  
+key = a[low]; 
+i = low+1;  
+j = high;
+while(1) 
+	 	{ 
+	 	 	while(a[i] < key && i <= high) 
+	 	 	{ 
+	 	 	 	++i; 
+	 	 	} 
+	 	 	while(a[j] > key && j >= low) 
+	 	 	{ 
+	 	 	 	--j; 
+	 	 	} 
+	 	 	if(i < j) 
+	 	 	{ 
+ 	 	 	temp = a[i];  	 
+a[i] = a[j];  	 	
+a[j] = temp; 
+	 	 	} 
+	 	 	else 
+	 	 	{ 
+ 	 	 	temp = a[low];  
+a[low] = a[j];  	 	
+a[j] = temp; 
+return j; 
+	 	 	} 
+	 	} 
+} 
 
-    towerOfHanoi(n - 1, source, auxiliary, destination);
-    printf("Move disk %d from peg %c to peg %c\n", n, source, destination);
-    towerOfHanoi(n - 1, auxiliary, destination, source);
+
+
+
+
+
+#include<stdio.h> 
+#include<conio.h> 
+#include<stdlib.h> 
+#include<time.h> 
+ 
+void quick_sort(int[ ], int, int);
+int partition(int[ ], int, int); 
+ 
+void main() 
+{
+int a[3500], i, j; 
+long int n=500; 
+clock_t start, end; 
+clrscr(); 
+while(n<=3500) 
+{
+for(i=0;i<n;i++) 
+{
+a[i]=rand(); 
 }
-
-int gcd(int a, int b) {
-    if (b == 0)
-        return a;
-    return gcd(b, a % b);
+start=clock(); 
+for(j=0; j<100; j++) 
+{ 
+quick_sort(a, 0, n-1); 
+} 
+end=clock(); 
+printf("\n the time taken for n=%lu is %f\n", n,(end-start)/CLK_TCK); 
+n = n + 500; 
 }
-
-int findLargest(int arr[], int n) {
-    if (n == 1)
-        return arr[0];
-
-    int max_of_rest = findLargest(arr + 1, n - 1);
-
-    if (arr[0] > max_of_rest)
-        return arr[0];
-    else
-        return max_of_rest;
+getch();
+} 
+ 
+void quick_sort(int a[], int low, int high) 
+{ 
+int j; 
+if(low<high) 
+{ 
+j=partition(a,low,high); 
+quick_sort(a,low,j-1); 
+quick_sort(a,j+1,high); 
 }
+}
+int partition(int a[], int low, int high) 
+{ 
+int i, j, key, temp; 
+key=a[low]; 
+i=low+1;
+j=high;
+while(1) 
+{ 
+while(a[i] <= key && i <= high)
+{ 
+++i;
+}
+while(a[j] > key && j >= low)
+{ 
+--j; 
+}
+if(i < j) 
+{ 
+temp = a[i]; 
+a[i] = a[j]; a[j] = temp;
+} else 
+{ 
+ 	 	 	temp = a[low];  	 
+a[low] = a[j];  	 	 
+a[j] = temp;  	 	
+return j; 
+	 	 	} 
+	 	} 
+} 
+
