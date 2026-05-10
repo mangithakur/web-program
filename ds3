@@ -1,77 +1,162 @@
-#include <stdio.h>
-#include <ctype.h>     // for isalnum()
+#include<stdio.h> 
+#include<conio.h> 
+#include<process.h> 
+ 
+void split(int[], int, int); void combine(int[], int, int, int); 
+ 
+void main( ) 
+{ 
+ 	int a[20], i, n;  	clrscr( ); 
+	 	printf("\n enter the no. of elements:\t"); 
+	 	scanf("%d", &n); 
+ 	printf("\n enter the elements:\n");  
+for(i=0;i<=n-1;i++) 
+	 	{ 
+	 	 	scanf("%d", &a[i]); 
+	 	} 
+ 	split(a, 0, n-1);  	printf("\n the sorted array is:\n"); 
+for(i=0;i<=n-1;i++) 
+	 	{ 
+	 	 	printf("%d\t",a[i]); 
+	 	} 
+	 	getch( ); 
+} 
+ 
+void split(int a[], int low, int high) 
+{ 
+ 	int mid;  	if(low<high) 
+	 	{ 
+ 	 	mid=(low+high)/2;  	 
+split(a,low,mid);  	 
+split(a,mid+1,high);  	 
+combine(a,low,mid,high); 
+	 	} 
+} 
+ 
+void combine(int a[], int low, int mid, int high) 
+{ 
+	 	int c[20],i,j,k; 
+ 	i=k=low;  	j=mid+1; 
+	 	while(i<=mid&&j<=high) 
+	 	{ 
+	 	 	if(a[i]<a[j]) 
+	 	 	{ 
+	 	 	 	c[k]=a[i]; 
+	 	 	 	++k; 
+ 	 	 	++i;  	 	} 
+	 	 	else 
+	 	 	{ 
+	 	 	 	c[k]=a[j]; 
+	 	 	 	++k; 
+	 	 	 	++j; 
+	 	 	} 
+	 	} 
+	 	if(i>mid) 
+	 	{ 
+	 	 	while(j<=high) 
+	 	 	{ 
+	 	 	 	c[k]=a[j]; 
+	 	 	 	++k; 
+	 	 	 	++j; 
+	 	 	} 
+	 	} 
+	 	if(j>high) 
+	 	{ 
+	 	 	while(i<=mid) 
+	 	 	{ 
+	 	 	 	c[k]=a[i]; 
+	 	 	 	++k; 
+	 	 	 	++i; 
+	 	 	} 
+	 	} 
+	 	for(i=low;i<=high;i++) 
+	 	{ 
+	 	 	a[i]=c[i]; 
+	 	} 
+} 
 
-#define MAX 100
 
-char stack[MAX];
-int top = -1;
 
-void push(char ch) {
-    stack[++top] = ch;
-}
 
-char pop() {
-    return stack[top--];
-}
 
-int precedence(char ch) {
-    if (ch == '^') return 3;
-    if (ch == '*' || ch == '/') return 2;
-    if (ch == '+' || ch == '-') return 1;
-    return 0;
-}
-
-void infixToPostfix(char infix[], char postfix[]) {
-    int i = 0, j = 0;
-    char ch;
-
-    while (infix[i] != '\0') {
-        ch = infix[i];
-
-    
-        if (isalnum(ch)) {     
-            postfix[j++] = ch;
-        }
-
-        else if (ch == '(') {
-            push(ch);
-        }
-
-        else if (ch == ')') {
-            while (top != -1 && stack[top] != '(') {
-                postfix[j++] = pop();
-            }
-            pop(); // '(' remove
-        }
-
-    
-        else {
-            while (top != -1 && precedence(stack[top]) >= precedence(ch)) {
-                postfix[j++] = pop();
-            }
-            push(ch);
-        }
-
-        i++;
-    }
-
+#include<stdio.h> 
+#include<conio.h> 
+#include<stdlib.h> 
+#include<time.h> 
+ 
+void split(int[], int, int); void combine(int[], int, int, int); 
+ 
+void main() 
+{ 
+ 	int a[15000], i, j;  	long int n=500;  	clock_t start, end;  	clrscr();  	while(n<=15000) 
+	 	{ 
+	 	 	for(i=0;i<=n-1;i++) 
+	 	 	{ 
+	 	 	 	a[i]=rand( ); 
+	 	 	} 
+ 	 	start=clock( );  	 	for(i=0;i<100;i++) 
+	 	 	{ 
+	 	 	  split(a, 0, n-1); 
+	 	 	} 
+	 	 	end=clock( ); 
+	 	 	printf("\n the time taken for n=%lu is %f\n",n,(end-start)/CLK_TCK); 
+	 	 	n=n+1000; 
+	 	} 
+	 	getch(); 
+} 
+ 
+void split(int a[],int low,int high) 
+{ 
+ 	int mid;  	if(low<high) 
+	 	{ 
+ 	 	mid=(low+high)/2;  
+split(a,low,mid);  	 	
+split(a,mid+1,high);  	 
+combine(a,low,mid,high); 
+	 	} 
+}  
+void combine(int a[],int low, int mid, int high) 
+{ 
+	 	int c[15000],i,j,k; 
+ 	i=k=low; 
+j=mid+1; 
+	 	while(i<=mid&&j<=high) 
+	 	{ 
+	 	 	if(a[i]<a[j]) 
+	 	 	{ 
+	 	 	 	c[k]=a[i]; 
+	 	 	 	++k; 
+ 	 	 	++i;  
+} 
+	 	 	else 
+	 	 	{ 
+	 	 	 	c[k]=a[j]; 
+	 	 	 	++k; 
+	 	 	 	++j; 
+	 	 	} 
+	 	} 
+	 	if(i>mid) 
+	 	{ 
+	 	 	while(j<=high) 
+	 	 	{ 
+	 	 	 	c[k]=a[j]; 
+	 	 	 	++k; 
+	 	 	 	++j; 
+	 	 	} 
+	 	} 
+	 	if(j>high) 
+	 	{ 
+	 	 	while(i<=mid) 
+	 	 	{ 
+	 	 	 	c[k]=a[i]; 
+	 	 	 	++k; 
+	 	 	 	++i; 
+	 	 	} 
+	 	} 
+	 	for(i=low;i<=high;i++) 
+	 	{ 
+	 	 	a[i]=c[i]; 
+	 	} 
+} 
    
-    while (top != -1) {
-        postfix[j++] = pop();
-    }
 
-    postfix[j] = '\0';   // postfix end
-}
-
-int main() {
-    char infix[MAX], postfix[MAX];
-
-    printf("Enter a valid infix expression: ");
-    scanf("%s", infix);
-
-    infixToPostfix(infix, postfix);
-
-    printf("Postfix Expression: %s\n", postfix);
-
-    return 0;
-}
